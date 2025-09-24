@@ -10,7 +10,7 @@ export function Footer() {
                     <div className="flex flex-col items-center md:items-start">
                         <div className="flex items-center gap-2 mb-4">
                             <Logo className="h-10 w-10" />
-                            <p className="text-xl font-bold font-headline">FarmSamvad</p>
+                            <p className="text-xl font-bold font-headline">FarmSaathi</p>
                         </div>
                         <p className="text-sm text-muted-foreground">
                             <TranslatableText text="Empowering India's farmers with technology." />
@@ -40,7 +40,7 @@ export function Footer() {
                 <Separator className="my-8" />
                 <div className="text-center text-xs text-muted-foreground">
                     <p>
-                        <TranslatableText text="© 2025 FarmSamvad, A Digital India Initiative. All Rights Reserved." />
+                        <TranslatableText text="© 2025 FarmSaathi, A Digital India Initiative. All Rights Reserved." />
                     </p>
                 </div>
             </div>

@@ -32,7 +32,7 @@ export function Header() {
                     <Link href="/" className="flex items-center gap-3">
                         <Logo className="h-8 w-8" />
                         <span className="text-xl font-bold font-headline text-foreground">
-                            FarmSamvad
+                            FarmSaathi
                         </span>
                     </Link>
                     <div className="flex items-center gap-2">
