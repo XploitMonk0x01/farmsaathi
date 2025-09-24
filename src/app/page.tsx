@@ -10,27 +10,42 @@ import { motion } from 'framer-motion';
 
 export default function Home() {
   const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: "easeOut" } 
+    }
   };
+
+  const MotionSection = ({ children }: { children: React.ReactNode }) => (
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionVariants}
+    >
+      {children}
+    </motion.section>
+  );
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
         <Hero />
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={sectionVariants}>
+        <MotionSection>
           <Credibility />
-        </motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={sectionVariants}>
+        </MotionSection>
+        <MotionSection>
           <PlatformOverview />
-        </motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={sectionVariants}>
+        </MotionSection>
+        <MotionSection>
           <Schemes />
-        </motion.div>
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }} variants={sectionVariants}>
+        </MotionSection>
+        <MotionSection>
           <SuccessStories />
-        </motion.div>
+        </MotionSection>
       </main>
       <Footer />
     </div>
