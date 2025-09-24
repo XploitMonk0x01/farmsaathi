@@ -56,18 +56,34 @@ export function Credibility() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                     {stats.map((stat) => (
-                        <motion.div key={stat.label} variants={cardVariants} whileHover="hover">
-                            <Card className="text-center bg-background shadow-lg border-primary/20 border h-full">
-                                <CardContent className="p-6 flex flex-col items-center justify-center">
-                                    {stat.icon}
-                                    <p className="text-3xl font-bold text-primary mt-2">
-                                        <TranslatableText text={stat.value} />
-                                    </p>
-                                    <p className="text-muted-foreground mt-1">
-                                        <TranslatableText text={stat.label} />
-                                    </p>
-                                </CardContent>
-                            </Card>
+                        <motion.div 
+                            key={stat.label} 
+                            variants={cardVariants} 
+                            whileHover="hover"
+                            whileTap={{ scale: 0.98 }}
+                            style={{ perspective: 800 }}
+                        >
+                            <motion.div
+                                className="h-full"
+                                whileHover={{
+                                    rotateY: 15,
+                                    rotateX: -10,
+                                    boxShadow: "0px 20px 40px rgba(0,0,0,0.2)",
+                                }}
+                                transition={{ type: "spring", stiffness: 300 }}
+                            >
+                                <Card className="text-center bg-background shadow-lg border-primary/20 border h-full">
+                                    <CardContent className="p-6 flex flex-col items-center justify-center">
+                                        {stat.icon}
+                                        <p className="text-3xl font-bold text-primary mt-2">
+                                            <TranslatableText text={stat.value} />
+                                        </p>
+                                        <p className="text-muted-foreground mt-1">
+                                            <TranslatableText text={stat.label} />
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </motion.div>
                         </motion.div>
                     ))}
                 </div>
@@ -81,7 +97,8 @@ export function Credibility() {
                             <motion.div 
                                 key={partner.name} 
                                 className="font-bold text-muted-foreground text-lg opacity-75"
-                                whileHover={{ opacity: 1, scale: 1.1 }}
+                                whileHover={{ opacity: 1, scale: 1.1, y: -2, color: "hsl(var(--primary))" }}
+                                transition={{duration: 0.2}}
                             >
                                 <TranslatableText text={partner.name} />
                             </motion.div>

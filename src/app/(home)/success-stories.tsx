@@ -26,15 +26,32 @@ export function SuccessStories() {
         }
     ];
 
+    const containerVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.1,
+            },
+        },
+    };
+
     const cardVariants = {
+        hidden: { opacity: 0, x: -50 },
+        visible: { 
+            opacity: 1, 
+            x: 0,
+            transition: { duration: 0.6, ease: "circOut" }
+        },
         hover: { 
             y: -8,
+            boxShadow: "0px 12px 24px rgba(0,0,0,0.12)",
             transition: { duration: 0.3, ease: "easeOut" }
         }
     };
 
     return (
-        <section className="py-12 lg:py-20 bg-background">
+        <section className="py-12 lg-py-20 bg-background">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-headline">
@@ -44,7 +61,13 @@ export function SuccessStories() {
                         <TranslatableText text="Hear directly from farmers who have transformed their lives with FarmSaathi." />
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {stories.map((story, index) => (
                          <motion.div key={index} variants={cardVariants} whileHover="hover">
                             <Card className="overflow-hidden shadow-lg h-full">
@@ -72,7 +95,7 @@ export function SuccessStories() {
                             </Card>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );

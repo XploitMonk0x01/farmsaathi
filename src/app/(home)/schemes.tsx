@@ -1,3 +1,4 @@
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Sprout, Tractor, Droplets, Banknote } from "lucide-react";
 import { TranslatableText } from "@/components/translatable-text";
@@ -28,10 +29,26 @@ export function Schemes() {
         },
     ];
 
+    const containerVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.15,
+            },
+        },
+    };
+
     const cardVariants = {
+        hidden: { opacity: 0, scale: 0.9 },
+        visible: { 
+            opacity: 1, 
+            scale: 1,
+            transition: { duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] }
+        },
         hover: { 
             y: -5,
             borderColor: "hsl(var(--primary))",
+            boxShadow: "0px 10px 20px rgba(0,0,0,0.08)",
             transition: { duration: 0.3 }
         }
     };
@@ -47,7 +64,13 @@ export function Schemes() {
                         <TranslatableText text="Stay informed about and apply for beneficial government schemes directly from our platform." />
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {schemes.map((scheme, index) => (
                         <motion.div key={index} variants={cardVariants} whileHover="hover">
                             <Card className="flex flex-col bg-background shadow-md h-full">
@@ -70,7 +93,7 @@ export function Schemes() {
                             </Card>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );

@@ -33,7 +33,22 @@ export function PlatformOverview() {
         },
     ];
 
+    const containerVariants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
     const cardVariants = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        },
         hover: { 
             scale: 1.03,
             boxShadow: "0px 10px 30px -5px rgba(0,0,0,0.1)",
@@ -52,20 +67,28 @@ export function PlatformOverview() {
                         <TranslatableText text="From sowing to selling, FarmSaathi is your digital companion at every step of your farming journey." />
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {features.map((feature, index) => (
                         <motion.div key={index} variants={cardVariants} whileHover="hover">
                             <Card className="overflow-hidden shadow-lg h-full">
                                {feature.image && (
-                                 <div className="aspect-w-16 aspect-h-9">
-                                    <Image
-                                        src={feature.image.imageUrl}
-                                        alt={feature.title}
-                                        width={600}
-                                        height={400}
-                                        className="object-cover w-full h-full"
-                                        data-ai-hint={feature.image.imageHint}
-                                    />
+                                 <div className="aspect-w-16 aspect-h-9 overflow-hidden">
+                                    <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.5 }}>
+                                        <Image
+                                            src={feature.image.imageUrl}
+                                            alt={feature.title}
+                                            width={600}
+                                            height={400}
+                                            className="object-cover w-full h-full"
+                                            data-ai-hint={feature.image.imageHint}
+                                        />
+                                    </motion.div>
                                  </div>
                                )}
                                <CardHeader className="flex flex-row items-start gap-4">
@@ -84,7 +107,7 @@ export function PlatformOverview() {
                             </Card>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     );
