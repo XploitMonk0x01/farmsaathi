@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A beautiful cinematic shot of a vibrant farm during sunrise.",
+      "imageUrl": "https://images.unsplash.com/photo-1599008938301-61c4e98bdd6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYXJtJTIwc3VucmlzZXxlbnwwfHx8fDE3NTg2MzI0Njh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farm sunrise"
+    },
+    {
+      "id": "success-story-1",
+      "description": "Portrait of a smiling farmer in a field.",
+      "imageUrl": "https://images.unsplash.com/photo-1623211268529-69c56e303312?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxpbmRpYW4lMjBmYXJtZXJ8ZW58MHx8fHwxNzU4NzE1MTMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "indian farmer"
+    },
+    {
+      "id": "success-story-2",
+      "description": "Portrait of a woman farmer looking at a tablet.",
+      "imageUrl": "https://images.unsplash.com/photo-1582563556319-381ad4504ed9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGZhcm1lcnxlbnwwfHx8fDE3NTg2MjU5MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman farmer"
+    },
+    {
+      "id": "success-story-3",
+      "description": "Portrait of a young farmer in a tractor.",
+      "imageUrl": "https://images.unsplash.com/photo-1586973698216-0c4c285d7afd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx5b3VuZyUyMGZhcm1lcnxlbnwwfHx8fDE3NTg2MjU5MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "young farmer"
+    },
+    {
+      "id": "overview-advisory",
+      "description": "A farmer using a smartphone in a field.",
+      "imageUrl": "https://images.unsplash.com/photo-1510644010809-79f00acf6dcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmYXJtZXIlMjBzbWFydHBob25lfGVufDB8fHx8MTc1ODY1MTMzOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmer smartphone"
+    },
+    {
+      "id": "overview-market",
+      "description": "A bustling agricultural market.",
+      "imageUrl": "https://images.unsplash.com/photo-1556327018-5463d38c8ba0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWNlJTIwbWFya2V0fGVufDB8fHx8MTc1ODY4OTYyNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "produce market"
+    },
+    {
+      "id": "overview-schemes",
+      "description": "A government building.",
+      "imageUrl": "https://images.unsplash.com/photo-1573181759662-1c146525b21f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb3Zlcm5tZW50JTIwYnVpbGRpbmd8ZW58MHx8fHwxNzU4NjgzMDc5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "government building"
+    },
+    {
+      "id": "overview-community",
+      "description": "A group of farmers talking and collaborating.",
+      "imageUrl": "https://images.unsplash.com/photo-1619818761105-221bf0bee9d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYXJtZXJzJTIwdGFsa2luZ3xlbnwwfHx8fDE3NTg3MTUxMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farmers talking"
+    }
+  ]
 }
