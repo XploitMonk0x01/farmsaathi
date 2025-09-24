@@ -40,9 +40,9 @@ export function Credibility() {
                     <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-headline">
                         <TranslatableText text="Built on Trust and Credibility" />
                     </h2>
-                    <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                    <div className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
                         <TranslatableText text="Endorsed by the Government of India and trusted by farmers nationwide." />
-                    </p>
+                    </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
