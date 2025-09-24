@@ -24,9 +24,9 @@ export function Hero() {
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight font-headline shadow-black [text-shadow:0_2px_4px_var(--tw-shadow-color)]">
           <TranslatableText text="Empowering 146 Million Farmers Through Digital Innovation" />
         </h1>
-        <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto text-slate-200 shadow-black [text-shadow:0_1px_2px_var(--tw-shadow-color)]">
+        <div className="mt-6 text-lg md:text-xl max-w-2xl mx-auto text-slate-200 shadow-black [text-shadow:0_1px_2px_var(--tw-shadow-color)]">
           <TranslatableText text="AI-Powered Crop Advisory, Direct Market Access, and Government Schemes, all in your language." />
-        </p>
+        </div>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-base shadow-lg">
             <TranslatableText text="Start Your Smart Farming Journey" />
