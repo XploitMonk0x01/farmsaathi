@@ -113,10 +113,13 @@ export class TypedUtils {
       loop: true,
       showCursor: true,
       cursorChar: '|',
-      preStringTyped: (arrayPos: number, self: any) => {
-        // Add syntax highlighting class
-        self.el.style.fontFamily = 'monospace'
-        self.el.style.fontSize = '14px'
+      onComplete: () => {
+        // Add syntax highlighting style after typing is complete
+        const el = element as HTMLElement
+        if (el) {
+          el.style.fontFamily = 'monospace'
+          el.style.fontSize = '14px'
+        }
       },
     })
   }
@@ -163,7 +166,7 @@ export function useTyped(
     let isMounted = true
     if (elementRef.current) {
       const initTyped = async () => {
-        const typed = await TypedUtils.init(elementRef.current, {
+        const typed = await TypedUtils.init(elementRef.current!, {
           strings,
           ...options,
         })
@@ -224,7 +227,7 @@ export function TypedText({
 
     if (elementRef.current) {
       const initTyped = async () => {
-        typedInstance = await TypedUtils.init(elementRef.current, {
+        typedInstance = await TypedUtils.init(elementRef.current!, {
           strings,
           typeSpeed,
           backSpeed,

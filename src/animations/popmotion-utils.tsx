@@ -1,35 +1,30 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { spring, keyframes, timeline, animate } from 'popmotion'
+import { animate } from 'popmotion'
 
 export class PopmotionUtils {
   static createSpringAnimation(
     element: HTMLElement,
     options: {
-      from?: any
-      to?: any
-      stiffness?: number
-      damping?: number
-      mass?: number
+      from?: number
+      to?: number
+      duration?: number
     } = {}
   ) {
     const {
-      from = { x: 0, y: 0 },
-      to = { x: 100, y: 100 },
-      stiffness = 500,
-      damping = 25,
-      mass = 1,
+      from = 0,
+      to = 100,
+      duration = 1000,
     } = options
 
-    return spring({
+    return animate({
       from,
       to,
-      stiffness,
-      damping,
-      mass,
-    }).start((v) => {
-      element.style.transform = `translate(${v.x}px, ${v.y}px)`
+      duration,
+      onUpdate: (v: number) => {
+        element.style.transform = `translateX(${v}px)`
+      }
     })
   }
 
@@ -42,11 +37,15 @@ export class PopmotionUtils {
   ) {
     const { scale = 1.2, duration = 300 } = options
 
-    return keyframes({
-      values: [1, scale, 1],
-      duration,
-    }).start((v) => {
-      element.style.transform = `scale(${v})`
+    return animate({
+      from: 1,
+      to: scale,
+      duration: duration / 2,
+      repeat: 1,
+      repeatType: "reverse",
+      onUpdate: (v: number) => {
+        element.style.transform = `scale(${v})`
+      }
     })
   }
 
@@ -237,7 +236,7 @@ export class PopmotionUtils {
       from,
       to,
       duration,
-      ease: [0.68, -0.55, 0.265, 1.55], // Elastic ease
+      // Remove ease property as it's not supported in this version
       onUpdate: (v) => {
         if (v.scale !== undefined) {
           element.style.transform = `scale(${v.scale})`
@@ -278,13 +277,14 @@ export class PopmotionUtils {
         const x = deltaX * force
         const y = deltaY * force
 
-        spring({
+        // Simple transform animation
+        animate({
           from: { x: 0, y: 0 },
           to: { x, y },
-          stiffness: 300,
-          damping: 20,
-        }).start((v) => {
-          element.style.transform = `translate(${v.x}px, ${v.y}px)`
+          duration: 300,
+          onUpdate: (v: { x: number, y: number }) => {
+            element.style.transform = `translate(${v.x}px, ${v.y}px)`
+          }
         })
       }
     }
@@ -295,13 +295,13 @@ export class PopmotionUtils {
 
     const handleMouseLeave = () => {
       isHovering = false
-      spring({
+      animate({
         from: { x: 0, y: 0 },
         to: { x: 0, y: 0 },
-        stiffness: 300,
-        damping: 20,
-      }).start((v) => {
-        element.style.transform = `translate(${v.x}px, ${v.y}px)`
+        duration: 300,
+        onUpdate: (v: { x: number, y: number }) => {
+          element.style.transform = `translate(${v.x}px, ${v.y}px)`
+        }
       })
     }
 
@@ -323,7 +323,7 @@ export function useSpringAnimation(dependency: any, options: any = {}) {
 
   useEffect(() => {
     if (elementRef.current) {
-      return PopmotionUtils.createSpringAnimation(elementRef.current, options)
+      PopmotionUtils.createSpringAnimation(elementRef.current, options)
     }
   }, [dependency])
 
@@ -347,7 +347,12 @@ export function useInViewAnimation(options: any = {}) {
 
   useEffect(() => {
     if (elementRef.current) {
-      return PopmotionUtils.createInViewAnimation(elementRef.current, options)
+      const cleanup = PopmotionUtils.createInViewAnimation(elementRef.current, options)
+      return () => {
+        if (cleanup && typeof cleanup.stop === 'function') {
+          cleanup.stop()
+        }
+      }
     }
   }, [])
 

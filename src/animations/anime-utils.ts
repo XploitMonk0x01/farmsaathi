@@ -6,16 +6,13 @@ export class AnimeUtils {
   private static async loadAnime() {
     if (!this.anime) {
       try {
-        // Try different import methods
-        this.anime = (await import('animejs')).default
+        // Import the entire module
+        const animeModule = await import('animejs')
+        // Use the module directly for animejs
+        this.anime = animeModule as any
       } catch (error) {
-        try {
-          // Fallback to require
-          this.anime = require('animejs')
-        } catch (requireError) {
-          console.warn('Failed to load animejs:', error, requireError)
-          return null
-        }
+        console.warn('Failed to load animejs:', error)
+        return null
       }
     }
     return this.anime
@@ -109,28 +106,7 @@ export class AnimeUtils {
     })
   }
 
-  static async rippleEffect(
-    element: string | Element,
-    options: {
-      color?: string
-      duration?: number
-    } = {}
-  ) {
-    const anime = await this.loadAnime()
-    if (!anime) return
 
-    const el =
-      typeof element === 'string' ? document.querySelector(element) : element
-    if (!el) return
-
-    return anime({
-      targets: el,
-      scale: [0, 1],
-      opacity: [1, 0],
-      duration: options.duration || 600,
-      easing: 'easeOutExpo',
-    })
-  }
 
   static async cardAnimation(element: string | Element) {
     const anime = await this.loadAnime()
@@ -331,6 +307,81 @@ export class AnimeUtils {
       easing: 'easeInOutSine',
       loop: options.loop !== false,
       direction: 'alternate',
+    })
+  }
+
+  static async cardFlip(element: HTMLElement) {
+    const anime = await this.loadAnime()
+    if (!anime) return
+
+    return anime({
+      targets: element,
+      rotateY: '180deg',
+      duration: 600,
+      easing: 'easeInOutCubic',
+      complete: () => {
+        setTimeout(() => {
+          anime({
+            targets: element,
+            rotateY: '0deg',
+            duration: 600,
+            easing: 'easeInOutCubic',
+          })
+        }, 1000)
+      }
+    })
+  }
+
+  static async numberCount(
+    element: HTMLElement, 
+    start: number, 
+    end: number, 
+    options: { duration?: number } = {}
+  ) {
+    const anime = await this.loadAnime()
+    if (!anime) return
+
+    const obj = { value: start }
+    
+    return anime({
+      targets: obj,
+      value: end,
+      duration: options.duration || 2000,
+      easing: 'easeOutCubic',
+      update: () => {
+        element.textContent = Math.round(obj.value).toString()
+      }
+    })
+  }
+
+  static async rippleEffect(element: HTMLElement, x?: number, y?: number) {
+    const anime = await this.loadAnime()
+    if (!anime) return
+
+    const ripple = document.createElement('div')
+    ripple.style.position = 'absolute'
+    ripple.style.borderRadius = '50%'
+    ripple.style.background = 'rgba(255, 255, 255, 0.6)'
+    ripple.style.transform = 'scale(0)'
+    ripple.style.left = (x || 50) + 'px'
+    ripple.style.top = (y || 50) + 'px'
+    ripple.style.width = '20px'
+    ripple.style.height = '20px'
+    ripple.style.pointerEvents = 'none'
+
+    element.style.position = 'relative'
+    element.style.overflow = 'hidden'
+    element.appendChild(ripple)
+
+    return anime({
+      targets: ripple,
+      scale: [0, 4],
+      opacity: [1, 0],
+      duration: 600,
+      easing: 'easeOutCubic',
+      complete: () => {
+        ripple.remove()
+      }
     })
   }
 }

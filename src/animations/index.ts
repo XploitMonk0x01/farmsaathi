@@ -37,7 +37,7 @@ export function useGSAPAnimation(
           GSAPUtils.scaleInBounce(elementRef.current, options)
           break
         case 'stagger':
-          GSAPUtils.staggerFadeIn(elementRef.current, options)
+          GSAPUtils.staggerFadeIn([elementRef.current], options)
           break
       }
     }
@@ -55,19 +55,25 @@ export function useButtonAnimation(
     if (buttonRef.current) {
       let cleanup: (() => void) | undefined
 
-      switch (type) {
-        case 'hover':
-          cleanup = AnimeUtils.buttonHover(buttonRef.current)
-          break
-        case 'magnetic':
-          cleanup = GSAPUtils.magneticEffect(buttonRef.current)
-          break
-        case 'elastic':
-          AnimeUtils.elasticScale(buttonRef.current)
-          break
+      const setupAnimation = async () => {
+        switch (type) {
+          case 'hover':
+            cleanup = await AnimeUtils.buttonHover(buttonRef.current!)
+            break
+          case 'magnetic':
+            cleanup = GSAPUtils.magneticEffect(buttonRef.current!)
+            break
+          case 'elastic':
+            await AnimeUtils.elasticScale(buttonRef.current!)
+            break
+        }
       }
+      
+      setupAnimation()
 
-      return cleanup
+      return () => {
+        if (cleanup) cleanup()
+      }
     }
   }, [type])
 
@@ -86,7 +92,7 @@ export function useCardAnimation(
       switch (animation) {
         case 'hover':
           element.addEventListener('mouseenter', () => {
-            AnimeUtils.elasticScale(element, { scale: [1, 1.02, 1] })
+            AnimeUtils.elasticScale(element, { scale: 1.02 }).catch(console.error)
           })
           break
         case 'reveal':
@@ -94,7 +100,7 @@ export function useCardAnimation(
           break
         case 'flip':
           element.addEventListener('click', () => {
-            AnimeUtils.cardFlip(element)
+            AnimeUtils.cardFlip(element).catch(console.error)
           })
           break
       }
@@ -111,17 +117,21 @@ export function useIconAnimation(
 
   useEffect(() => {
     if (iconRef.current) {
-      switch (animation) {
-        case 'pulse':
-          AnimeUtils.iconPulse(iconRef.current)
-          break
-        case 'float':
-          AnimeUtils.floatingElements([iconRef.current])
-          break
-        case 'rotate':
-          GSAPUtils.createScrollTimeline()
-          break
+      const setupAnimation = async () => {
+        switch (animation) {
+          case 'pulse':
+            await AnimeUtils.iconPulse(iconRef.current!)
+            break
+          case 'float':
+            await AnimeUtils.floatingElements([iconRef.current!])
+            break
+          case 'rotate':
+            GSAPUtils.createScrollTimeline()
+            break
+        }
       }
+      
+      setupAnimation().catch(console.error)
     }
   }, [animation])
 
@@ -143,7 +153,7 @@ export function useNumberCounter(
     if (numberRef.current && options.trigger !== false) {
       AnimeUtils.numberCount(numberRef.current, 0, finalNumber, {
         duration: options.duration || 2000,
-      })
+      }).catch(console.error)
     }
   }, [finalNumber, options.trigger, options.duration])
 
@@ -182,7 +192,7 @@ export function useClickEffect(
             if (burst) burst.play()
             break
           case 'ripple':
-            AnimeUtils.rippleEffect(element, x, y)
+            AnimeUtils.rippleEffect(element, x, y).catch(console.error)
             break
           case 'confetti':
             const confetti = await MojsUtils.createConfetti(element)
@@ -278,7 +288,10 @@ export function useAdvancedCard() {
       GSAPUtils.fadeInUp(element)
 
       // Hover effects
-      const hoverCleanup = AnimeUtils.buttonHover(element)
+      let hoverCleanup: (() => void) | undefined
+      AnimeUtils.buttonHover(element).then(cleanup => {
+        hoverCleanup = cleanup
+      }).catch(console.error)
 
       // Magnetic effect
       const magneticCleanup = GSAPUtils.magneticEffect(element, 0.2)
@@ -304,12 +317,15 @@ export function useAdvancedButton() {
       const element = buttonRef.current
 
       // Hover animation
-      const hoverCleanup = AnimeUtils.buttonHover(element)
+      let hoverCleanup: (() => void) | undefined
+      AnimeUtils.buttonHover(element).then(cleanup => {
+        hoverCleanup = cleanup
+      }).catch(console.error)
 
       // Click effects
       element.addEventListener('click', (e) => {
         // Elastic animation
-        AnimeUtils.elasticScale(element)
+        AnimeUtils.elasticScale(element).catch(console.error)
 
         // Burst effect
         const rect = element.getBoundingClientRect()
